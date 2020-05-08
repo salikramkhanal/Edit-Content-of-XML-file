@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 18 10:04:17 2020
+
+@author: INESC TEC
+"""
+import os
+import xml.etree.ElementTree as ET
+input_path = 'source folder path'
+entries = os.listdir(input_path)
+unique_names=[]
+used = []
+for f in entries:
+    completepath = input_path+f
+    tree = ET.parse(completepath)
+    root = tree.getroot()
+    for child in root:
+        if child.tag == 'object': 
+            for neighbor in child.iter('name'):
+                neighbor.text = 'boat'
+    tree.write('Destination path'+f)
